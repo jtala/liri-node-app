@@ -49,6 +49,9 @@ Terminal commands should follow the format of : node liri.js movie-this "The Mov
 node liri.js movie-this Interstellar
 
 ```
+This command returns a wide selection of information, as seen below:
+<img src="/assets/images/movie-this-example.JPG" alt="Interstellar Example">
+
 
 Movies with multiples words can be queried simply with spaces between their words.
 
