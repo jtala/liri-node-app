@@ -2,26 +2,20 @@ require("dotenv").config();
 
 // Installing modules.
 var axios = require("axios");
-var dotenv = require("dotenv");
+var keys = require("./keys.js");
 var moment = require("moment");
 var fs = require("fs");
 var Spotify = require("node-spotify-api");
 
-
-  // To check what your id and secret code is.
-    var spotify = new Spotify({
-      id: "59519a4762c94bbb8e1a72b8249be01c",
-      secret: "ac905f17fd954e34bd6bd7e23f548b1d"
-        //id: result.parsed.SPOTIFY_ID,
-        //secret: result.parsed.SPOTIFY_SECRET,
-    });
-
+// To check what your id and secret code is.
+var spotify = new Spotify(keys.spotify);
+      
+    
 // Console arguments
 var command = process.argv[2];
 var searchD = process.argv.slice(3).join(" ");
 
-//Switch Case Statements.
-
+//switch depending on commands
 switch (command) {
     case "spotify-this-song":
       spotSearch(searchD);
@@ -39,16 +33,17 @@ switch (command) {
       doWhatItSays();
       break;
     }
-
-
 // Functions
 
-
-//Spotify-this Song
 function spotSearch (searchD){
 spotify.search({ type: 'track', query: searchD}, function(err, data) {
     if (err) {
-      return console.log('Error occurred: ' + err);
+      console.log("This song is from the album Happy Nation.");
+      console.log("The artist(s) in this track is Ace of Base"); 
+      console.log("The song's name is The Sign"); 
+      console.log("Preview the song at: https://www.youtube.com/watch?v=iqu132vTl5Y");
+      
+      return console.log("Spotify can't find the song you chose, but here's an awesome song instead.");
     }
     
   console.log("This song is from the album " + data.tracks.items[0].album.name); 
@@ -79,6 +74,21 @@ function movieSearch(searchD){
 
   axios.get("http://www.omdbapi.com/?t=" + searchMov + "&y=&plot=short&apikey=trilogy").then(
   function(response) {
+    // If the we can't find the movie database,  show them Mr Nobody.
+    if (response.data.Response === "False"){
+      return mrNobody();
+      function mrNobody(){
+      console.log("We can't find that movie in our database, but Mr. Nobody's an awesome movie, so here's the info for that!");
+      console.log("Movie Title: Mr. Nobody");
+      console.log("Release Year: 2009");
+      console.log("IMDB Rating: 7.9");
+      console.log("Rating from Rotten Tomatoes = 67%");
+      console.log("This movie was made in  ‎Belgium, Canada, France & Germany");
+      console.log("This movie is availabile in English.");
+      console.log("Plot: A boy stands on a station platform as a train is about to leave. Should he go with his mother or stay with his father? Infinite possibilities arise from this decision. As long as he doesn't choose, anything is possible.");
+      console.log("Actors: Jared Leto, Sarah Polley, Diane Kruger");
+      }
+    }
 
     console.log("Movie Title: "  + response.data.Title);
     console.log("Release Year: " +response.data.Year);
@@ -92,7 +102,6 @@ function movieSearch(searchD){
   }
 );
 }
-
 function doWhatItSays(){
 
   //Reading the file,
@@ -101,31 +110,40 @@ function doWhatItSays(){
     if (error) {
       return console.log(error);
     }
-    //console.log(data);
 
     //split before the comma, take this as the command.
     let a = data.split(",");
     let arg = a[0];
     let searchFor = a[1];
 
+    // If readtext asks for a concert, OMDB doesn't like the extra quotes, so we have to get rid of it.
+    if (arg === "concert-this"){
+      var noQuotes = searchFor.substr(1).slice(0,-1);
+
+      let command = arg;
+      let searchD = noQuotes;
+
+      switch (command) {
+      
+        case "concert-this":
+        concertSearch(searchD);
+        break;
+
+      }
+    }
     
-    // Run different cases depending on the argument. 
+    // The other two commands run ok with the quotes, so we can leave them there.
     let command = arg;
     let searchD = searchFor;
 
     switch (command) {
       case "spotify-this-song":
       spotSearch(searchD);
-        break;
-      
-      case "concert-this":
-      concertSearch(searchD);
-        break;
-      
+      break;
+
       case "movie-this":
       movieSearch(searchD);
       break;
-
     }
 });
 }
