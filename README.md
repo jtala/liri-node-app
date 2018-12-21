@@ -59,20 +59,27 @@ Movies with multiples words can be queried simply with spaces between their word
 node liri.js movie-this The Sisterhood of the Traveling Pants
 
 ```
+<img src="/assets/images/movie-this-example2.JPG" alt="Pants Example">
+
 
 ### Finding Songs
 
 Terminal commands should follow the format of : node liri.js spotify-this-song "The Song That You Want"
 
 ```
-node liri.js spotify-this-song Somebody Told Me
+node liri.js spotify-this-song HiiiPower
+
+```
+<img src="/assets/images/spotify-example.JPG" alt="HiiiPower Example">
+
+
+```
+node liri.js spotify-this-song Hips Don't Lie
 
 ```
 
-```
-node liri.js spotify-this-song Livin' on a Prayer
+<img src="/assets/images/spotify-example2.JPG" alt="Shakira Example">
 
-```
 
 ### Finding Nearby Concerts
 
@@ -82,11 +89,16 @@ Terminal commands should follow the format of : node liri.js concert-this "The B
 node liri.js concert-this The Killers
 
 ```
+<img src="/assets/images/concert-this.JPG" alt="The Killers Example">
+
+
 
 ```
 node liri.js concert-this Weezer
 
 ```
+<img src="/assets/images/concert-this2.JPG" alt="Weezer Example">
+
 
 ### Extracting data from a text.
 
@@ -101,6 +113,11 @@ node liri.js do-what-it-says
 
 ```
 
+<img src="/assets/images/do-what-it-says.JPG" alt="Do Example">
+
+The command currently inside the random.txt file is : spotify-this-song,"I Want it That Way".
+
+Change it to run any of the above commands!
 ## Built With
 
 * [Axios] (https://www.npmjs.com/package/axios) - makes http requests
