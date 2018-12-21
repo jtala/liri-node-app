@@ -1,4 +1,4 @@
-# liri-node-app
+# LIRI
 
 LIRI (which stands for Language Interpretation and Recognition Interface) is a command line node.js  entertainment application which will takes in three types of parameters for either movies, nearby concerts, or songs, and will return information about that given parameter to the user.
 
